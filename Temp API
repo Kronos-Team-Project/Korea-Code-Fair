@@ -1,0 +1,12 @@
+from urllib.request import Request, urlopen
+from urllib.parse import urlencode, quote_plus
+url = 'http://apis.data.go.kr/1360000/BeachInfoservice/getTwBuoyBeach'
+service_key ='K5fygs3Ao38zhEsyxA2qi4TnFk1O6Q4Rpwok1XdloMNXSfLFOf1VNbuUV7zKFSIZZvgnFw8Iz2cCqzO0Eyvoyw=='
+time = '202208280400'
+#시간은 '2022' : 연도, '0828' : 날짜, '0400' : 시간(24시간 기준)
+beach = '188'
+#해수욕장 번호는 엑셀파일의 1번 라인
+queryParams = '?' + urlencode({quote_plus('ServiceKey') : service_key, quote_plus('numOfRows') : '1', quote_plus('pageNo') : '10', quote_plus('dataType') : 'JSON', quote_plus('beach_num') : beach,  quote_plus('searchTime') : time})
+response = urlopen(url + queryParams)
+json_api = response.read().decode("utf-8")
+print (json_api)
